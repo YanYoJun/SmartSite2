@@ -118,7 +118,7 @@ public class PMDevicesListAdapter extends BaseAdapter {
             holder.iv_data.setImageResource(R.drawable.timedisable);
             holder.tv_data.setTextColor(mContext.getResources().getColor(R.color.gray_9999));
         }
-        holder.installTime.setText("安装时间: "+devices.getInstallTime().substring(0,10));
+        holder.installTime.setText(mContext.getString(R.string.pmd_install_time)+devices.getInstallTime().substring(0,10));
         holder.address.setText(""+devices.getDeviceName());
 
         String pm10 = "";

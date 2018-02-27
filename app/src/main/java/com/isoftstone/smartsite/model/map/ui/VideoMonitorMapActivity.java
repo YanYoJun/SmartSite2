@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -124,7 +125,7 @@ public class VideoMonitorMapActivity extends BaseActivity implements View.OnClic
         if(type == TYPE_CAMERA){
             camera_devices = (ArrayList<DevicesBean>) getIntent().getSerializableExtra("devices");
             if(camera_devices == null || camera_devices.size() == 0 ){
-                ToastUtils.showLong("没有获取到设备地址信息！");
+                ToastUtils.showLong(getString(R.string.map_not_get_device_address_info));
             }else {
                 isHasData = true;
 
@@ -135,7 +136,7 @@ public class VideoMonitorMapActivity extends BaseActivity implements View.OnClic
         } else if(type == TYPE_ENVIRONMENT){
             envir_devices = (ArrayList<DataQueryVoBean>) getIntent().getSerializableExtra("devices");
             if(envir_devices == null || envir_devices.size() == 0 ){
-                ToastUtils.showLong("没有获取到设备地址信息！");
+                ToastUtils.showLong(getString(R.string.map_not_get_device_address_info));
             }else {
                 isHasData = true;
                 if(position != -1){
@@ -151,9 +152,9 @@ public class VideoMonitorMapActivity extends BaseActivity implements View.OnClic
         TextView tv_title = (TextView) findViewById(R.id.toolbar_title);
 
         if(type == TYPE_CAMERA){
-            tv_title.setText("视频监控地图");
+            tv_title.setText(getString(R.string.video_monitor_map));
         } else if(type == TYPE_ENVIRONMENT) {
-            tv_title.setText("环境监控地图");
+            tv_title.setText(getString(R.string.pmd_monitor_map));
         } else if(type == 0){
             tv_title.setText("");
         }
@@ -167,6 +168,7 @@ public class VideoMonitorMapActivity extends BaseActivity implements View.OnClic
 
         mMapView = (MapView) findViewById(R.id.map_view);
         mMapView.onCreate(savedInstanceState);
+
         initMapView();
         initPopWindow();
     }
@@ -183,7 +185,7 @@ public class VideoMonitorMapActivity extends BaseActivity implements View.OnClic
         } else {
             initLocation(aotiLatLon);
         }
-        if(currentCameraDevice!=null){
+        if(currentCameraDevice!=null||currentEnvirDevice!=null){
             addAndRemoveRoundMarker();
         }
 
@@ -195,16 +197,16 @@ public class VideoMonitorMapActivity extends BaseActivity implements View.OnClic
                 tv_deviceNumber.setText(currentCameraDevice.getDeviceCoding());
             }
             if("0".equals(currentCameraDevice.getDeviceStatus())){
-                tv_isOnline.setText("在线");
+                tv_isOnline.setText(getString(R.string.map_online));
                 tv_isOnline.setBackgroundResource(R.drawable.shape_map_online);
             } else if("1".equals(currentCameraDevice.getDeviceStatus())){
-                tv_isOnline.setText("离线");
+                tv_isOnline.setText(getString(R.string.map_offline));
                 tv_isOnline.setBackgroundResource(R.drawable.shape_offline);
             } else if("2".equals(currentCameraDevice.getDeviceStatus())){
-                tv_isOnline.setText("故障");
+                tv_isOnline.setText(getString(R.string.map_fault));
                 tv_isOnline.setBackgroundResource(R.drawable.shape_map_bad);
             }
-            tv_deviceTime.setText("安装日期：" + currentCameraDevice.getInstallTime().substring(0,10));
+            tv_deviceTime.setText(getString(R.string.map_install_time)+ currentCameraDevice.getInstallTime().substring(0,10));
             tv_deviceAddress.setText(currentCameraDevice.getDeviceName());
             if("0".equals(currentCameraDevice.getDeviceStatus())){
                 videoView.setClickable(true);
@@ -237,16 +239,16 @@ public class VideoMonitorMapActivity extends BaseActivity implements View.OnClic
         } else if(type == TYPE_ENVIRONMENT && currentEnvirDevice!=null){
             tv_deviceNumber.setText(currentEnvirDevice.getDeviceCoding());
             if(0 == currentEnvirDevice.getDeviceStatus()){
-                tv_isOnline.setText("在线");
+                tv_isOnline.setText(getString(R.string.map_online));
                 tv_isOnline.setBackgroundResource(R.drawable.shape_map_online);
             } else if(1 == currentEnvirDevice.getDeviceStatus()){
-                tv_isOnline.setText("离线");
+                tv_isOnline.setText(getString(R.string.map_offline));
                 tv_isOnline.setBackgroundResource(R.drawable.shape_offline);
             } else if(2 == currentEnvirDevice.getDeviceStatus()){
-                tv_isOnline.setText("故障");
+                tv_isOnline.setText(getString(R.string.map_fault));
                 tv_isOnline.setBackgroundResource(R.drawable.shape_map_bad);
             }
-            tv_deviceTime.setText("安装日期：" + currentEnvirDevice.getInstallTime().substring(0,10));
+            tv_deviceTime.setText(getString(R.string.map_install_time) + currentEnvirDevice.getInstallTime().substring(0,10));
             tv_deviceAddress.setText(currentEnvirDevice.getDeviceName());
             if(0 == currentEnvirDevice.getDeviceStatus()){
                 videoView.setClickable(true);
@@ -493,15 +495,15 @@ public class VideoMonitorMapActivity extends BaseActivity implements View.OnClic
         background_line = popWindowView.findViewById(R.id.background_line);
         if(type == TYPE_CAMERA){
             eviorment_view.setVisibility(View.GONE);
-            tv_video.setText("实时视频");
-            tv_history.setText("历史监控");
-            tv_gallery.setText("视频抓拍");
+            tv_video.setText(getString(R.string.realtime_video));
+            tv_history.setText(getString(R.string.historical_monitoring));
+            tv_gallery.setText(getString(R.string.snapshot_record));
 
         } else if(type == TYPE_ENVIRONMENT){
             galleryView.setVisibility(View.GONE);
             background_line.setVisibility(View.GONE);
-            tv_video.setText("实时数据");
-            tv_history.setText("历史数据");
+            tv_video.setText(getString(R.string.realtime_video));
+            tv_history.setText(getString(R.string.historical_monitoring));
         }
 
         mPopWindow = new PopupWindow(this);
@@ -748,16 +750,16 @@ public class VideoMonitorMapActivity extends BaseActivity implements View.OnClic
                     tv_deviceNumber.setText(device.getDeviceCoding());
                 }
                 if("0".equals(device.getDeviceStatus())){
-                    tv_isOnline.setText("在线");
+                    tv_isOnline.setText(getString(R.string.map_online));
                     tv_isOnline.setBackgroundResource(R.drawable.shape_map_online);
                 } else if("1".equals(device.getDeviceStatus())){
-                    tv_isOnline.setText("离线");
+                    tv_isOnline.setText(getString(R.string.map_offline));
                     tv_isOnline.setBackgroundResource(R.drawable.shape_offline);
                 } else if("2".equals(device.getDeviceStatus())){
-                    tv_isOnline.setText("故障");
+                    tv_isOnline.setText(getString(R.string.map_fault));
                     tv_isOnline.setBackgroundResource(R.drawable.shape_map_bad);
                 }
-                tv_deviceTime.setText("安装日期：" + device.getInstallTime().substring(0,10));
+                tv_deviceTime.setText(getString(R.string.map_install_time) + device.getInstallTime().substring(0,10));
                 tv_deviceAddress.setText(device.getDeviceName());
                 if("0".equals(device.getDeviceStatus())){
                     videoView.setClickable(true);
@@ -792,16 +794,16 @@ public class VideoMonitorMapActivity extends BaseActivity implements View.OnClic
                 currentEnvirDevice = device;
                 tv_deviceNumber.setText(device.getDeviceCoding());
                 if(0 == device.getDeviceStatus()){
-                    tv_isOnline.setText("在线");
+                    tv_isOnline.setText(getString(R.string.map_online));
                     tv_isOnline.setBackgroundResource(R.drawable.shape_map_online);
                 } else if(1 == device.getDeviceStatus()){
-                    tv_isOnline.setText("离线");
+                    tv_isOnline.setText(getString(R.string.map_offline));
                     tv_isOnline.setBackgroundResource(R.drawable.shape_offline);
                 } else if(2 == device.getDeviceStatus()){
-                    tv_isOnline.setText("故障");
+                    tv_isOnline.setText(getString(R.string.map_fault));
                     tv_isOnline.setBackgroundResource(R.drawable.shape_map_bad);
                 }
-                tv_deviceTime.setText("安装日期：" + device.getInstallTime().substring(0,10));
+                tv_deviceTime.setText( getString(R.string.map_install_time) + device.getInstallTime().substring(0,10));
                 tv_deviceAddress.setText(device.getDeviceName());
                 if(0 == device.getDeviceStatus()){
                     videoView.setClickable(true);

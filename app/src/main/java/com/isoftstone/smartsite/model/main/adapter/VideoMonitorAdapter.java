@@ -46,15 +46,6 @@ public class VideoMonitorAdapter extends BaseAdapter {
     private final String IMAGE_TYPE = "image/*";
     private Context mContext = null;
     private AdapterViewOnClickListener listener;
-    private ArrayList<DevicesBean> mAllData = new ArrayList<DevicesBean>();
-
-    public ArrayList<DevicesBean> getAllData() {
-        return mAllData;
-    }
-
-    public void setAllData(ArrayList<DevicesBean> mAllData) {
-        this.mAllData = mAllData;
-    }
 
     public VideoMonitorAdapter(Context context){
         this.mInflater = LayoutInflater.from(context);
@@ -69,6 +60,10 @@ public class VideoMonitorAdapter extends BaseAdapter {
 
     public void setData(ArrayList<DevicesBean> list){
         mData = list;
+    }
+
+    private ArrayList<DevicesBean> getData(){
+        return mData;
     }
 
     @Override
@@ -133,21 +128,21 @@ public class VideoMonitorAdapter extends BaseAdapter {
             holder.isOnlineTv.setImageResource(R.drawable.online);
             holder.button_1.setEnabled(true);
             holder.realtimeVideoImage.setImageDrawable(mContext.getResources().getDrawable(R.drawable.time));
-            holder.realtimeVideoTxt.setTextColor(mContext.getColor(R.color.mainColor));
+            holder.realtimeVideoTxt.setTextColor(mContext.getResources().getColor(R.color.mainColor));
 
         }else if(devicesBean.getDeviceStatus().equals("1")){
 
             holder.isOnlineTv.setImageResource(R.drawable.offline);
             holder.button_1.setEnabled(false);
             holder.realtimeVideoImage.setImageDrawable(mContext.getResources().getDrawable(R.drawable.timedisable));
-            holder.realtimeVideoTxt.setTextColor(mContext.getColor(R.color.hit_text_color));
+            holder.realtimeVideoTxt.setTextColor(mContext.getResources().getColor(R.color.hit_text_color));
 
         }else if(devicesBean.getDeviceStatus().equals("2")){
 
             holder.isOnlineTv.setImageResource(R.drawable.breakdown);
             holder.button_1.setEnabled(false);
             holder.realtimeVideoImage.setImageDrawable(mContext.getResources().getDrawable(R.drawable.timedisable));
-            holder.realtimeVideoTxt.setTextColor(mContext.getColor(R.color.hit_text_color));
+            holder.realtimeVideoTxt.setTextColor(mContext.getResources().getColor(R.color.hit_text_color));
 
         }
 
@@ -234,7 +229,7 @@ public class VideoMonitorAdapter extends BaseAdapter {
                 //跳转到地图
                 Intent intent = new Intent();
                 intent.putExtra("type",TYPE_CAMERA);
-                intent.putExtra("devices",mAllData);
+                intent.putExtra("devices",getData());
                 intent.putExtra("position",position);
                 intent.setClass(mContext,VideoMonitorMapActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

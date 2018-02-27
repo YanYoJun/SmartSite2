@@ -10,7 +10,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -80,7 +82,6 @@ public class VideoMonitoringActivity extends BaseActivity implements VideoMonito
     private static  final int  HANDLER_GETDIVICES_END = 2;
     public static  final  int HANDLER_LOAD_MORE = 3;
     private ArrayList<DevicesBean> list = new ArrayList<DevicesBean>();
-    ArrayList<DevicesBean> mData = new ArrayList<DevicesBean>();
     private int mCurrentPage = 0;
     private int mFlag = -1;
     private DevicesBeanPage mDevicesBeanPage = null;
@@ -152,24 +153,10 @@ public class VideoMonitoringActivity extends BaseActivity implements VideoMonito
     @Override
     protected void afterCreated(Bundle savedInstanceState) {
         init();
-        //查询设备列表,并填充ListView数据
-        //setResourceDate();
-        showDlg("正在获取设备列表");
+
+        showDlg(getString(R.string.video_monitor_seacher_device_list));
         mHandler.sendEmptyMessage(HANDLER_GETDIVICES_START);
 
-        Thread thread = new Thread(){
-            @Override
-            public void run() {
-                try {
-                    PageableBean pageableBean = new PageableBean();
-                    mData =  mHttpPost.getDevicesListPage("1","","","",pageableBean).getContent();
-                    adapter.setAllData(mData);
-                } catch (Exception e) {
-                    Log.i(TAG,"throw a exception: " + e.getMessage());
-                }
-            }
-        };
-        thread.start();
     }
 
     private void init(){
@@ -182,7 +169,7 @@ public class VideoMonitoringActivity extends BaseActivity implements VideoMonito
         mtitleTextView = (TextView) findViewById(R.id.toolbar_title);
         search_btn_search = (ImageButton)findViewById(R.id.search_btn_search);
         search_edit_text = (EditText)findViewById(R.id.search_edit_text);
-        mtitleTextView.setText("视频监控");
+        mtitleTextView.setText(getString(R.string.video_monitor_device_control));
         mImageView_serch.setImageResource(R.drawable.search);
         mImageView_back.setOnClickListener(this);
         mImageView_serch.setOnClickListener(this);
@@ -202,13 +189,20 @@ public class VideoMonitoringActivity extends BaseActivity implements VideoMonito
         @Override
         public void onRefresh() {
             //下拉刷新
-            if( mDevicesBeanPage.isFirst()){
+            if(mDevicesBeanPage!=null){
+                if( mDevicesBeanPage.isFirst()){
+                    mCurrentPage = 0;
+                    mFlag = 1;
+                    mHandler.sendEmptyMessage(HANDLER_GETDIVICES_START);
+                }else{
+                    mListView.onRefreshComplete();
+                }
+            }else {
                 mCurrentPage = 0;
                 mFlag = 1;
                 mHandler.sendEmptyMessage(HANDLER_GETDIVICES_START);
-            }else{
-                mListView.onRefreshComplete();
             }
+
         }
 
         @Override
@@ -300,7 +294,8 @@ public class VideoMonitoringActivity extends BaseActivity implements VideoMonito
             break;
             case R.id.search_btn_search:{
                 String serch = search_edit_text.getText().toString();
-                Toast.makeText(getBaseContext(),"搜索内容为:"+serch,Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(),getString(R.string.video_monitor_search_content)+serch,Toast.LENGTH_LONG).show();
+
             }
             break;
         }
@@ -314,7 +309,7 @@ public class VideoMonitoringActivity extends BaseActivity implements VideoMonito
         @Override
         protected void onPreExecute() {
             //Toast.makeText(context,"开始执行",Toast.LENGTH_SHORT).show();
-            showDlg("正在获取" + mDevicesBean.getDeviceCoding() + "设备抓拍记录");
+            showDlg(getString(R.string.video_monitor_getting) + mDevicesBean.getDeviceCoding() + getString(R.string.video_monitor_photo_record));
         }
 
         @Override

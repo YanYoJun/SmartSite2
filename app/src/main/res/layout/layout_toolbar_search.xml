@@ -48,10 +48,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
-                    android:hint="请输入关键字"
+                    android:hint="@string/pls_enter_key"
                     android:textSize="14sp"
                     android:singleLine="true"
                     android:layout_marginLeft="8dp"
+                    android:imeOptions="actionSearch"
                     android:textColorHint="#64FFFFFF"/>
 
             </LinearLayout>
