@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
+    android:background="@null"
     android:orientation="vertical">
 
     <include layout="@layout/layout_toolbar_one_icon"
@@ -14,7 +15,7 @@
 
     <com.isoftstone.smartsite.common.widget.PullToRefreshListView
         android:id="@+id/list"
-        android:divider="@color/app_background"
+        android:divider="@color/trans"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:dividerHeight="10dp"/>
