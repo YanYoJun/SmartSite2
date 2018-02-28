@@ -5,6 +5,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -18,6 +21,7 @@ import com.isoftstone.smartsite.R;
 import com.isoftstone.smartsite.base.BaseActivity;
 import com.isoftstone.smartsite.http.HttpPost;
 import com.isoftstone.smartsite.http.patrolreport.ReportBean;
+import com.isoftstone.smartsite.model.tripartite.fragment.PictureSlideFragment;
 import com.isoftstone.smartsite.model.tripartite.fragment.ReadImgFragment;
 import com.isoftstone.smartsite.utils.FilesUtils;
 
@@ -56,7 +60,8 @@ public class ReadImageActivity extends BaseActivity {
         data = gson.fromJson(reportData,ReportBean.class);
         reportFiles = data.getReportFiles();
         initDate();
-        viewPager.setAdapter(new SamplePagerAdapter());
+//        viewPager.setAdapter(new SamplePagerAdapter());
+        viewPager.setAdapter(new PictureSlidePagerAdapter(getSupportFragmentManager()));
         viewPager.setCurrentItem(position);
     }
 
@@ -66,7 +71,8 @@ public class ReadImageActivity extends BaseActivity {
             String formatPath = FilesUtils.getFormatString(absPath);
             if (TripartiteActivity.mImageList.contains(formatPath)) {
                 String filePath = mHttpPost.getReportPath(data.getId(), absPath);
-                list.add(filePath);
+                String fileUrl = mHttpPost.getFileUrl(absPath);
+                list.add(fileUrl);
             }
         }
     }
@@ -96,6 +102,22 @@ public class ReadImageActivity extends BaseActivity {
                 photoView.setImageBitmap(BitmapFactory.decodeFile((String) list.get(position)) );
                 container.addView(photoView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
             return photoView;
+        }
+    }
+    private  class PictureSlidePagerAdapter extends FragmentStatePagerAdapter {
+
+        public PictureSlidePagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return PictureSlideFragment.newInstance((String) list.get(position));
+        }
+
+        @Override
+        public int getCount() {
+            return list.size();
         }
     }
 }
