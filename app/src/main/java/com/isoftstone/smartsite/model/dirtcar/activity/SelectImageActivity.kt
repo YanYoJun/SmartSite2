@@ -44,7 +44,7 @@ open class SelectImageActivity : BaseActivity() {
             }
             if (mSelectedNum <= 0) {
                 mSelectedNum = 0
-                mLabSelectedNum?.setText("提交")
+                mLabSelectedNum?.setText(R.string.submit)
             }
             if (mSelectedNum > 0) {
                 mLabSelectedNum?.setText("提交（$mSelectedNum）")
@@ -102,7 +102,7 @@ open class SelectImageActivity : BaseActivity() {
         }
         if (mSelectedNum <= 0) {
             mSelectedNum = 0
-            mLabSelectedNum?.setText("提交")
+            mLabSelectedNum?.setText(R.string.submit)
         }
         if (mSelectedNum > 0) {
             mLabSelectedNum?.setText("提交（$mSelectedNum）")

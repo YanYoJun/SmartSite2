@@ -43,7 +43,7 @@ open class RecognizeDirtCarActivity : AppCompatActivity() {
             Log.e(TAG, "yanlog onCreate:" + bean)
             var lab_license = findViewById(R.id.lab_license) as TextView
             if (TextUtils.isEmpty(bean.licence)) {
-                lab_license.setText("未知")
+                lab_license.setText(R.string.unknow)
             } else {
                 mLicense = bean.licence
                 lab_license.setText(bean.licence)
@@ -51,14 +51,14 @@ open class RecognizeDirtCarActivity : AppCompatActivity() {
 
             var lab_address = findViewById(R.id.lab_address) as TextView
             if (TextUtils.isEmpty(bean.addr)) {
-                lab_address.setText("未知")
+                lab_address.setText(R.string.unknow)
             } else {
                 lab_address.setText(bean.addr)
             }
 
             var lab_time = findViewById(R.id.lab_time) as TextView
             if (TextUtils.isEmpty(bean.dateTime)) {
-                lab_time.setText("未知")
+                lab_time.setText(R.string.unknow)
             } else {
                 lab_time.setText(bean.dateTime)
             }

@@ -69,7 +69,7 @@ public class PMHistoryinfoAdapter extends BaseAdapter {
         }else {
             holder = (ViewHolder)convertView.getTag();
         }
-        holder.time.setText("更新时间 "+mData.get(position).getPushTime());
+        holder.time.setText(R.string.update_time+mData.get(position).getPushTime());
         holder.PM10.setText("PM10 "+String.format("%.1f",(mData.get(position).getPm10())));
         holder.PM25.setText("PM2.5 "+String.format("%.1f",(mData.get(position).getPm2_5())));
         holder.SO2.setText("CO2 "+String.format("%.1f",(mData.get(position).getCo2())));

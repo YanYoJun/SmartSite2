@@ -72,7 +72,7 @@ open class DirtCarAdapter(context: Context, datas: ArrayList<BayonetGrabInfoBean
 
         var address = v.findViewById(R.id.lab_address) as TextView
         if (TextUtils.isEmpty(bean.addr)) {
-            address.setText("未知地点")
+            address.setText(R.string.unknow_address)
         } else {
             address.setText(bean.addr)
         }

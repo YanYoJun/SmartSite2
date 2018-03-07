@@ -224,10 +224,10 @@ public class LoginActivity extends Activity implements OnClickListener,OnLoginLi
 				mIdString = mIdEditText.getText().toString();
 				mPwdString = mPwdEditText.getText().toString();
 				if (mIdString == null || mIdString.equals("")) { // 账号为空时
-					Toast.makeText(LoginActivity.this, "请输入账号", Toast.LENGTH_SHORT)
+					Toast.makeText(LoginActivity.this, R.string.input_account, Toast.LENGTH_SHORT)
 							.show();
 				} else if (mPwdString == null || mPwdString.equals("")) {// 密码为空时
-					Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_SHORT)
+					Toast.makeText(LoginActivity.this, R.string.input_password, Toast.LENGTH_SHORT)
 							.show();
 				} else {// 账号和密码都不为空时
 					Message message = new Message();
@@ -281,7 +281,7 @@ public class LoginActivity extends Activity implements OnClickListener,OnLoginLi
 						Intent intent = new Intent();
 						intent.setClass(LoginActivity.this,MainActivity.class);
 						LoginActivity.this.startActivity(intent);
-						mLoginResult = "登录成功";
+						mLoginResult = getString(R.string.login_success);
 						Toast.makeText(getApplication(),mLoginResult,Toast.LENGTH_SHORT).show();
 						finish();
 					}
@@ -327,7 +327,7 @@ public class LoginActivity extends Activity implements OnClickListener,OnLoginLi
 			}else{
 				 mLoginResult = loginBean.getmErrorInfo();
 				 if(mLoginResult == null){
-					 mLoginResult = "登录失败";
+					 mLoginResult = getString(R.string.login_failed);
 				 }
 				 isLogin_1 = false;
 				 mHandler.sendEmptyMessage(HANDLER_SHOW_TOAST);

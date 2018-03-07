@@ -126,16 +126,16 @@ public class SplashActivity extends BaseActivity {
     private void showToConnectNetworkDialog() {
         if (connectNetworkDialog == null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("网络连接检查");
-            builder.setMessage("网络没有连接，是否去连接网络？");
-            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            builder.setTitle(R.string.check_web_connect);
+            builder.setMessage(R.string.web_disconnect);
+            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
                     SplashActivity.this.finish();
                 }
             });
-            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(R.string.select_inspecter_btn, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
@@ -154,16 +154,16 @@ public class SplashActivity extends BaseActivity {
             if(androidType != 1){
             //if (true) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("版本更新检查");
-                builder.setMessage("发现新版本，是否更新？");
-                builder.setNegativeButton("残忍的拒绝", new DialogInterface.OnClickListener() {
+                builder.setTitle(R.string.version_update);
+                builder.setMessage(R.string.new_version_update);
+                builder.setNegativeButton(R.string.decline, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         mHandler.sendEmptyMessage(GO_TO_LOGIN);
                     }
                 });
-                builder.setPositiveButton("愉快的接受", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(SplashActivity.this, DownloadAPKService.class);
@@ -176,9 +176,9 @@ public class SplashActivity extends BaseActivity {
                 updateVersionDialog = builder.create();
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("版本更新检查");
-                builder.setMessage("发现新版本，该版本为强制更新版本，不更新无法正常使用！");
-                builder.setPositiveButton("更新", new DialogInterface.OnClickListener() {
+                builder.setTitle(R.string.version_update);
+                builder.setMessage(R.string.important_information);
+                builder.setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(SplashActivity.this, DownloadAPKService.class);

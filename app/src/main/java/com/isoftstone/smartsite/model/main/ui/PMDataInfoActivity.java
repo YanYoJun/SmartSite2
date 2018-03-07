@@ -105,9 +105,9 @@ public class PMDataInfoActivity extends BaseActivity {
         setOnCliceked();
 
         if(mDataQueryVoBean == null){
-            toolbar_title.setText("实时数据");
+            toolbar_title.setText(getString(R.string.device_list_left));
         }else {
-            toolbar_title.setText("历史数据详情");
+            toolbar_title.setText(getString(R.string.device_list_right));
         }
         if(devicesCode != null){
             mDevicesName.setText(devicesCode);
@@ -184,7 +184,7 @@ public class PMDataInfoActivity extends BaseActivity {
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case HANDLER_GET_DATA_START:{
-                    showDlg("数据加载中，请稍等");
+                    showDlg(getString(R.string.toast_information));
                     Thread thread = new Thread(){
                         @Override
                         public void run() {
@@ -201,7 +201,7 @@ public class PMDataInfoActivity extends BaseActivity {
                 }
                 break;
                 case HANDLER_GET_24DATA_START:{
-                    showDlg("数据加载中，请稍等");
+                    showDlg(getString(R.string.toast_information));
                     Thread thread = new Thread(){
                         @Override
                         public void run() {
@@ -289,14 +289,14 @@ public class PMDataInfoActivity extends BaseActivity {
         text_co.setText("CO2:"+ doubleToString(dataQueryVoBean.getCo2()));
 
         DecimalFormat df = new DecimalFormat("#.0");
-        text_indoortemp.setText("风速:"+doubleToString(dataQueryVoBean.getWindSpeed()));
-        text_windspeed.setText("风向:"+dataQueryVoBean.getWindDirection());
-        text_winddirection.setText("气压:"+doubleToString(dataQueryVoBean.getAtmosphericPressure()));
+        text_indoortemp.setText(R.string.wind_speed+doubleToString(dataQueryVoBean.getWindSpeed()));
+        text_windspeed.setText(R.string.wind_direction+dataQueryVoBean.getWindDirection());
+        text_winddirection.setText(R.string.pressure+doubleToString(dataQueryVoBean.getAtmosphericPressure()));
         text_airpressure.setVisibility(View.INVISIBLE);
 
-        text_temp.setText("温度:"+doubleToString(dataQueryVoBean.getAirTemperature()));
-        text_humidity.setText("湿度:"+doubleToString(dataQueryVoBean.getAirHumidity()));
-        text_precipitation.setText("雨量:"+doubleToString(dataQueryVoBean.getRainfall()));
+        text_temp.setText(R.string.tempressure+doubleToString(dataQueryVoBean.getAirTemperature()));
+        text_humidity.setText(R.string.humidity+doubleToString(dataQueryVoBean.getAirHumidity()));
+        text_precipitation.setText(R.string.heytal+doubleToString(dataQueryVoBean.getRainfall()));
 
     }
 

@@ -14,6 +14,7 @@ import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
 
+import com.isoftstone.smartsite.R;
 import com.isoftstone.smartsite.utils.LogUtils;
 import com.isoftstone.smartsite.utils.ToastUtils;
 
@@ -52,10 +53,10 @@ public class DownloadAPKService extends Service {
             apk_file_name = "SmartSite" + intent.getStringExtra("apk_version") + ".apk";
             File file = new File(DOWNLOAD_PATH,apk_file_name);
             if(file.exists()){
-                ToastUtils.showLong("后台已下载好APP，直接安装！");
+                ToastUtils.showLong(getString(R.string.download_complete));
                 installApk();
             }else{
-                ToastUtils.showLong("后台下载APP中,稍等...");
+                ToastUtils.showLong(getString(R.string.downloading));
                 downloadNewAPK();
             }
         }
@@ -118,7 +119,7 @@ public class DownloadAPKService extends Service {
         }
         request.setDestinationInExternalPublicDir("Download", apk_file_name);
         //通知栏中的标题
-        request.setTitle("智慧工地更新");
+        request.setTitle(getString(R.string.notify_title));
         //通知栏中的描述
         request.setDescription("下载" + apk_file_name + "中...");
         request.setMimeType("application/vnd.android.package-archive");
@@ -139,7 +140,7 @@ public class DownloadAPKService extends Service {
                 DownloadManager manager = (DownloadManager) context.getSystemService(DOWNLOAD_SERVICE);
                 //点击通知栏取消下载
                 manager.remove(ids);
-                ToastUtils.showLong("已经取消下载");
+                ToastUtils.showLong(getString(R.string.cancel_download));
             }
         }
     }

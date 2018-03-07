@@ -326,7 +326,7 @@ open class AddInspectPlan : BaseActivity() {
     fun onClick_submit(v: View) {
         var  submit = object :  AsyncTask<Void, Void, Boolean>() {
             override fun onPreExecute() {
-                this@AddInspectPlan.showDlg("正在提交")
+                this@AddInspectPlan.showDlg(getString(R.string.submit))
                 super.onPreExecute()
             }
 
@@ -407,10 +407,10 @@ open class AddInspectPlan : BaseActivity() {
             override fun onPostExecute(result: Boolean) {
                 this@AddInspectPlan.closeDlg()
                 if (result) {
-                    ToastUtils.showShort("提交成功")
+                    ToastUtils.showShort(getString(R.string.submit_success))
                     finish()
                 } else {
-                    ToastUtils.showShort("请检查字段或稍后重试")
+                    ToastUtils.showShort(getString(R.string.re_submit))
                 }
             }
         }

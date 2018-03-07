@@ -94,7 +94,7 @@ public class DisplayPhotoActivity extends BaseActivity implements View.OnClickLi
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 if (statusCode == 200) {
                     mResultCode = QUERY_RESULTS_SUCCESSFUL_CODE;
-                    mResultMsg = "请求网络加载图片成功！";
+                    mResultMsg = getString(R.string.request_pic_success);
                     //创建工厂对象
                     BitmapFactory bitmapFactory = new BitmapFactory();
                     //工厂对象的decodeByteArray把字节转换成Bitmap对象
@@ -106,7 +106,7 @@ public class DisplayPhotoActivity extends BaseActivity implements View.OnClickLi
                 } else {
                     closeDlg();
                     mResultCode = QUERY_RESULTS_FAILED_CODE;
-                    mResultMsg = "请求网络加载图片失败，错误状态码：" + statusCode;
+                    mResultMsg = getString(R.string.request_pic_failcode) + statusCode;
                     ToastUtils.showLong(mResultMsg);
                 }
             }
@@ -116,7 +116,7 @@ public class DisplayPhotoActivity extends BaseActivity implements View.OnClickLi
                                   byte[] responseBody, Throwable error) {
                 closeDlg();
                 mResultCode = QUERY_RESULTS_EXCEPTION_CODE;
-                mResultMsg = "请求网络加载图片异常：" + error.getMessage();
+                mResultMsg = getString(R.string.request_pic_exception)+ error.getMessage();
                 ToastUtils.showLong(mResultMsg);
                 error.printStackTrace();
 

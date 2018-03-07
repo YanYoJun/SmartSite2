@@ -350,11 +350,11 @@ public class ManualPhotographyActivity extends BaseActivity  implements View.OnC
 			if (resultsCode == QUERY_RESULTS_SUCCESSFUL_CODE) {
 				//setListViewData();
 			} else if (resultsCode == QUERY_RESULTS_FAILED_CODE){
-				ToastUtils.showLong("获取列表为空。");
+				ToastUtils.showLong(getString(R.string.device_list_null));
 			} else if (resultsCode == QUERY_RESULTS_EXCEPTION_CODE) {
-				ToastUtils.showLong("获取列表失败，请稍后重试");
+				ToastUtils.showLong(getString(R.string.device_list_failure));
 			} else if (resultsCode == QUERY_RESULTS_MAX_PAGE_CODE) {
-				ToastUtils.showLong("已达到最大页");
+				ToastUtils.showLong(getString(R.string.arrive_max));
 			}
 
 			if (isReLoading) {

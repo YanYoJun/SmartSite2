@@ -347,23 +347,23 @@ public class MainFragment extends BaseFragment {
             if (AQI < 50) {
                 wuran_image.setBackgroundResource(R.drawable.wuran_you_jingdu);
                 wuran_icon.setBackgroundResource(R.drawable.main_aqi);
-                wuran_text.setText("优");
+                wuran_text.setText(R.string.great);
             } else if (AQI < 100 && AQI >= 50) {
                 wuran_image.setBackgroundResource(R.drawable.wuran_liang_jingdu);
                 wuran_icon.setBackgroundResource(R.drawable.main_aqi);
-                wuran_text.setText("良");
+                wuran_text.setText(R.string.populattion_middle);
             } else if (AQI < 200 && AQI >= 100) {
                 wuran_image.setBackgroundResource(R.drawable.wuran_qingdu_jingdu);
                 wuran_icon.setBackgroundResource(R.drawable.main_aqi);
-                wuran_text.setText("轻度污染");
+                wuran_text.setText(R.string.populattion_one);
             } else if (AQI < 300 && AQI >= 200) {
                 wuran_image.setBackgroundResource(R.drawable.wuran_zhong1du_jingdu);
                 wuran_icon.setBackgroundResource(R.drawable.main_aqi);
-                wuran_text.setText("中度污染");
+                wuran_text.setText(R.string.populattion_two);
             } else if (AQI >= 300) {
                 wuran_image.setBackgroundResource(R.drawable.wuran_zhongdu_jingdu);
                 wuran_icon.setBackgroundResource(R.drawable.main_aqi);
-                wuran_text.setText("重度污染");
+                wuran_text.setText(R.string.populattion_third);
             }
             wuran_number.setText("" + AQI);
             mTemperatureTextView.setText(dataQueryBean.getAirTemperature() + "");
@@ -374,7 +374,7 @@ public class MainFragment extends BaseFragment {
     }
 
     private void setMobileHomeDataToView() {
-        mCityTestView.setText("武汉");
+        mCityTestView.setText(R.string.city_name);
         if (mMobileHomeBean == null) {
             return;
         }

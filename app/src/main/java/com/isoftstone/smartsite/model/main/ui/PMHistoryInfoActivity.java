@@ -74,7 +74,7 @@ public class PMHistoryInfoActivity extends BaseActivity {
         mImageView_back = (ImageButton)findViewById(R.id.btn_back);
         mImageView_icon = (ImageButton)findViewById(R.id.btn_icon);
         toolbar_title = (TextView) findViewById(R.id.toolbar_title);
-        toolbar_title.setText("历史数据");
+        toolbar_title.setText(R.string.history_data);
         mImageView_icon.setVisibility(View.INVISIBLE);
         mImageView_back.setOnClickListener(new View.OnClickListener() {
             @Override

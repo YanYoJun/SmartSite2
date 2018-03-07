@@ -256,7 +256,7 @@ public class AirMonitoringActivity extends BaseActivity implements View.OnClickL
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case HANDLER_GET_RANKING_START:{
-                    showDlg("数据加载中，请稍等");
+                    showDlg(getString(R.string.toast_information));
                     Thread thread = new Thread(){
                         @Override
                         public void run() {
@@ -282,7 +282,7 @@ public class AirMonitoringActivity extends BaseActivity implements View.OnClickL
                 }
                 break;
                 case HANDLER_GET_DAYS_PROPORTION_START:{
-                    showDlg("数据加载中，请稍等");
+                    showDlg(getString(R.string.toast_information));
                     Thread thread = new Thread(){
                         @Override
                         public void run() {
@@ -300,7 +300,7 @@ public class AirMonitoringActivity extends BaseActivity implements View.OnClickL
                 }
                 break;
                 case HANDLER_GET_COMPARISON_START:{
-                    showDlg("数据加载中，请稍等");
+                    showDlg(getString(R.string.toast_information));
                     Thread thread = new Thread(){
                         @Override
                         public void run() {
@@ -319,7 +319,7 @@ public class AirMonitoringActivity extends BaseActivity implements View.OnClickL
                 }
                 break;
                 case HANDLER_GET_QUYUDUIBI_START:{
-                    showDlg("数据加载中，请稍等");
+                    showDlg(getString(R.string.toast_information));
                     Thread thread = new Thread(){
                         @Override
                         public void run() {
@@ -477,21 +477,21 @@ public class AirMonitoringActivity extends BaseActivity implements View.OnClickL
         for (int i = 0; i < mWeatherList.size() ;i ++){
             String name = mWeatherList.get(i).getName();
             if(mWeatherList.get(i).getValue() > 0){
-                if(name.equals("优")){
-                    colors.add((Integer)getBaseContext().getColor(R.color.huanjin_you));
-                }else if(name.equals("良")){
-                    colors.add((Integer)getBaseContext().getColor(R.color.huanjin_liang));
-                }else if(name.equals("轻度污染")){
-                    colors.add((Integer)getBaseContext().getColor(R.color.huanjin_qingdu));
+                if(name.equals(R.string.great)){
+                    colors.add((Integer)getResources().getColor(R.color.huanjin_you));
+                }else if(name.equals(R.string.populattion_middle)){
+                    colors.add((Integer)getResources().getColor(R.color.huanjin_liang));
+                }else if(name.equals(R.string.populattion_one)){
+                    colors.add((Integer)getResources().getColor(R.color.huanjin_qingdu));
                 }
-                else if(name.equals("中度污染")){
-                    colors.add((Integer)getBaseContext().getColor(R.color.huanjin_zhong1du));
+                else if(name.equals(R.string.populattion_two)){
+                    colors.add((Integer)getResources().getColor(R.color.huanjin_zhong1du));
                 }
-                else if(name.equals("重度污染")){
-                    colors.add((Integer)getBaseContext().getColor(R.color.huanjin_zhongdu));
+                else if(name.equals(R.string.populattion_third)){
+                    colors.add((Integer)getResources().getColor(R.color.huanjin_zhongdu));
                 }
-                else if(name.equals("严重污染")){
-                    colors.add((Integer)getBaseContext().getColor(R.color.huanjin_yanzhong));
+                else if(name.equals(R.string.populattion_four)){
+                    colors.add((Integer)getResources().getColor(R.color.huanjin_yanzhong));
                 }
             }
         }
@@ -893,7 +893,7 @@ public class AirMonitoringActivity extends BaseActivity implements View.OnClickL
         switch (id) {
             case 1:
                 final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
-                builder.setTitle("请选两个区域");
+                builder.setTitle(getString(R.string.dialog_title));
 
                 builder.setMultiChoiceItems(address, addressFlags, new DialogInterface.OnMultiChoiceClickListener() {
 
@@ -909,7 +909,7 @@ public class AirMonitoringActivity extends BaseActivity implements View.OnClickL
                     }
                 });
 
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(getString(R.string.select_inspecter_btn), new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

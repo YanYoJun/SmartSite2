@@ -103,9 +103,9 @@ class DirtCarListActivity : BaseActivity() {
 
                     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                         if (count == 0) {
-                            cancel_search.setText("取消")
+                            cancel_search.setText(R.string.cancel)
                         } else {
-                            cancel_search.setText("搜索")
+                            cancel_search.setText(R.string.serach)
                         }
                     }
                 })
@@ -122,7 +122,7 @@ class DirtCarListActivity : BaseActivity() {
         toolbar_search.visibility = View.VISIBLE
         mIsUIInSearchMode = true
         search_edit_text.setText("")
-        cancel_search.setText("取消")
+        cancel_search.setText(R.string.cancel)
     }
 
     fun exitSearchMode() {
@@ -221,7 +221,7 @@ class DirtCarListActivity : BaseActivity() {
                 if (temp) {
                     mAdapter.notifyDataSetChanged()
                 } else {
-                    ToastUtils.showLong("没有获取到数据")
+                    ToastUtils.showLong(getString(R.string.no_data))
                 }
             }
         }

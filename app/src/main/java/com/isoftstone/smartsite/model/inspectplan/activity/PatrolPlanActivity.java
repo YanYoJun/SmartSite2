@@ -96,7 +96,7 @@ public class PatrolPlanActivity extends BaseActivity implements View.OnClickList
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case HANDLER_GET_WEEK_START: {
-                    showDlg("数据加载中");
+                    showDlg(getString(R.string.toast_information));
                     new Thread() {
                         @Override
                         public void run() {
@@ -151,7 +151,7 @@ public class PatrolPlanActivity extends BaseActivity implements View.OnClickList
                 }
                 break;
                 case HANDLER_BOHUI_START: {
-                    showDlg("提交中，请等待");
+                    showDlg(getString(R.string.submiting));
                     new Thread() {
                         @Override
                         public void run() {
@@ -174,7 +174,7 @@ public class PatrolPlanActivity extends BaseActivity implements View.OnClickList
                 break;
 
                 case HANDLER_TONGUO_START: {
-                    showDlg("提交中，请等待");
+                    showDlg(getString(R.string.submiting));
                     new Thread() {
                         @Override
                         public void run() {
@@ -197,7 +197,7 @@ public class PatrolPlanActivity extends BaseActivity implements View.OnClickList
                 break;
 
                 case HANDLER_TIJIAO_START: {
-                    showDlg("提交中，请等待");
+                    showDlg(getString(R.string.submiting));
                     new Thread() {
                         @Override
                         public void run() {
@@ -215,7 +215,7 @@ public class PatrolPlanActivity extends BaseActivity implements View.OnClickList
                 break;
                 case HANDLER_TIJIAO_END: {
                     selectindex = -1;
-                    Toast.makeText(PatrolPlanActivity.this,"提交成功",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PatrolPlanActivity.this,R.string.submit_success,Toast.LENGTH_SHORT).show();
                     updateWidget();
                     mHandler.sendEmptyMessage(HANDLER_GET_WEEK_START);
                     closeDlg();

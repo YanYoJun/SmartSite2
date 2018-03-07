@@ -91,7 +91,7 @@
     <string name="unread_msg_title">未读消息</string>
     <!--添加回访报告页-->
     <string name="report_address">地址：%1$s</string>
-    <string name="add_report">新增巡查报告</string>
+    <string name=" ">新增巡查报告</string>
     <string name="report_name">发布人：%1$s</string>
     <string name="report_stats">状态：%1$s</string>
     <string name="dealing">处理中</string>
@@ -248,6 +248,7 @@
     <string name="setting_su">Succeed to set</string>
     <!--        极光推送字符串后期删掉             -->
     <!--         select inspectors          -->
+    <string name="toast_information">数据加载中，请稍等</string>
     <string name="select_inspecter">请选择巡查人员</string>
     <string name="select_inspecter_title">选择人员</string>
     <string name="select_inspecter_btn">确定</string>
@@ -255,5 +256,56 @@
     <string name="select_title">选择上传文件</string>
     <string name="information">您没有权限修改</string>
     <string name="task_title">修改巡查任务</string>
+    <string name="dialog_title">请选两个区域</string>
+    <string name="city_name">武汉</string>
+    <string name="great">优</string>
+    <string name="populattion_middle">良</string>
+    <string name="populattion_one">轻度污染</string>
+    <string name="populattion_two">中度污染</string>
+    <string name="populattion_third">重度污染</string>
+    <string name="populattion_four">严重污染</string>
+    <string name="device_list_left">实时数据</string>
+    <string name="device_list_right">历史数据详情</string>
+    <string name="wind_speed">风速:</string>
+    <string name="wind_direction">风向:</string>
+    <string name="pressure">气压：</string>
+    <string name="tempressure">温度：</string>
+    <string name="humidity">湿度：</string>
+    <string name="heytal">雨量：</string>
+    <string name="history_data">历史数据</string>
+    <string name="device_list">设备列表</string>
+    <string name="install_time">安装时间：</string>
+    <string name="update_time">更新时间：</string>
+    <string name="submit_now">正在提交</string>
+    <string name="submit_success">提交成功</string>
+    <string name="re_submit">请检查字段或稍后重试</string>
+    <string name="device_list_null">获取列表为空。</string>
+    <string name="device_list_failure">获取列表失败，请稍后重试</string>
+    <string name="arrive_max">已达到最大页</string>
+    <string name="submiting">提交中，请等待</string>
+    <string name="check_web_connect">网络连接检查</string>
+    <string name="web_disconnect">网络没有连接，是否去连接网络？</string>
+    <string name="version_update">版本更新检查</string>
+    <string name="new_version_update">发现新版本，是否更新？</string>
+    <string name="decline">残忍的拒绝</string>
+    <string name="accept">愉快的接受</string>
+    <string name="important_information">发现新版本，该版本为强制更新版本，不更新无法正常使用！</string>
+    <string name="update">更新</string>
+    <string name="serach">搜索</string>
+    <string name="no_data">没有获取到数据</string>
+    <string name="request_pic_success">请求网络加载图片成功！</string>
+    <string name="request_pic_failcode">请求网络加载图片失败，错误状态码：</string>
+    <string name="request_pic_exception">请求网络加载图片异常：</string>
+    <string name="unknow">未知</string>
+    <string name="submit_failed">上传失败，请稍后重试</string>
+    <string name="unknow_address">未知地点</string>
+    <string name="download_complete">后台已下载好APP，直接安装！</string>
+    <string name="downloading">后台下载APP中,稍等...</string>
+    <string name="notify_title">智慧工地更新</string>
+    <string name="cancel_download">已经取消下载</string>
+    <string name="input_account">请输入账号</string>
+    <string name="input_password">请输入密码</string>
+    <string name="login_success">登陆成功</string>
+    <string name="login_failed">登录失败</string>
     <!--         select inspectors          -->
 </resources>

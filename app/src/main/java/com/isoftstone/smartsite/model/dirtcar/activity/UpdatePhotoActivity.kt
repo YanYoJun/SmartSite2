@@ -297,7 +297,7 @@ open class UpdatePhotoActivity : BaseActivity() {
     fun submit() {
         var query = object : AsyncTask<Void, Void, Boolean>() {
             override fun onPreExecute() {
-                this@UpdatePhotoActivity.showDlg("正在提交")
+                this@UpdatePhotoActivity.showDlg(getString(R.string.submit_now))
                 super.onPreExecute()
             }
 
@@ -338,12 +338,12 @@ open class UpdatePhotoActivity : BaseActivity() {
             override fun onPostExecute(result: Boolean) {
                 this@UpdatePhotoActivity.closeDlg()
                 if (result) {
-                    ToastUtils.showShort("提交成功")
+                    ToastUtils.showShort(getString(R.string.submit_success))
                     var i = Intent()
                     setResult(Activity.RESULT_OK, i)
                     finish()
                 } else {
-                    ToastUtils.showShort("上传失败，请稍后重试")
+                    ToastUtils.showShort(getString(R.string.submit_failed))
                 }
 
             }
