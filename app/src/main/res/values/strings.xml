@@ -91,7 +91,7 @@
     <string name="unread_msg_title">未读消息</string>
     <!--添加回访报告页-->
     <string name="report_address">地址：%1$s</string>
-    <string name=" ">新增巡查报告</string>
+    <string name="add_report">新增巡查报告</string>
     <string name="report_name">发布人：%1$s</string>
     <string name="report_stats">状态：%1$s</string>
     <string name="dealing">处理中</string>
