@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -58,7 +60,7 @@ public class PMDevicesListActivity extends BaseActivity {
     @Override
     protected void afterCreated(Bundle savedInstanceState) {
         init();
-        showDlg("数据加载中");
+        showDlg(getString(R.string.pmd_data_loading));
         mHandler.sendEmptyMessage(HANDLER_GET_DATA_START);
     }
 
@@ -74,7 +76,7 @@ public class PMDevicesListActivity extends BaseActivity {
         mtitleTextView = (TextView) findViewById(R.id.toolbar_title);
         search_btn_search = (ImageButton)findViewById(R.id.search_btn_search);
         search_edit_text = (EditText)findViewById(R.id.search_edit_text);
-        mtitleTextView.setText("设备列表");
+        mtitleTextView.setText(getString(R.string.pmd_device_list));
         mImageView_serch.setImageResource(R.drawable.search);
         mImageView_back.setOnClickListener(listener);
 //        mBtn_serch.setOnClickListener(listener);
@@ -97,13 +99,20 @@ public class PMDevicesListActivity extends BaseActivity {
         @Override
         public void onRefresh() {
             //下拉刷新
-            if( mDataQueryVoBeanPage.isFirst()){
+            if(mDataQueryVoBeanPage!=null){
+                if( mDataQueryVoBeanPage.isFirst()){
+                    mCurrentPage = 0;
+                    mFlag = 1;
+                    mHandler.sendEmptyMessage(HANDLER_GET_DATA_START);
+                }else{
+                    mListView.onRefreshComplete();
+                }
+            }else{
                 mCurrentPage = 0;
                 mFlag = 1;
                 mHandler.sendEmptyMessage(HANDLER_GET_DATA_START);
-            }else{
-                mListView.onRefreshComplete();
             }
+
         }
 
         @Override
@@ -114,7 +123,6 @@ public class PMDevicesListActivity extends BaseActivity {
                 mFlag = 2;
                 mHandler.sendEmptyMessage(HANDLER_GET_DATA_START);
             }else {
-                Log.e("testy","mListView.onLoadMoreComplete();");
                 mHandler.sendEmptyMessage(HANDLER_LOAD_MORE);
             }
         }
@@ -197,7 +205,7 @@ public class PMDevicesListActivity extends BaseActivity {
                 break;
                 case R.id.search_btn_search:{
                     String serch = search_edit_text.getText().toString();
-                    Toast.makeText(getBaseContext(),"搜索内容为:"+serch,2000).show();
+                    Toast.makeText(getBaseContext(),getString(R.string.pmd_seacher_content)+serch,Toast.LENGTH_SHORT).show();
                 }
                 break;
             }

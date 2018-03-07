@@ -144,7 +144,8 @@ public class AirMonitoringActivity extends BaseActivity implements View.OnClickL
     private void init(){
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM");
         imageButton = (ImageButton) findViewById(R.id.btn_search);
-        imageButton.setVisibility(View.VISIBLE);
+
+        imageButton.setVisibility(View.GONE);
         imageButton.setOnClickListener(this);
         oneIconLayout = (View)findViewById(R.id.one_icon);
         searchLayout = (View)findViewById(R.id.serch);

@@ -134,6 +134,7 @@
     <string name="end_time">结束时间</string>
     <string name="inpsect_report_name">报告名称</string>
     <string name="pls_enter_msg">请输入内容</string>
+    <string name="pls_enter_key">请输入关键字</string>
     <!-- 查看巡查报告-->
     <string name="read_report_title">查看巡查报告</string>
 
@@ -308,4 +309,37 @@
     <string name="login_success">登陆成功</string>
     <string name="login_failed">登录失败</string>
     <!--         select inspectors          -->
+    
+    <!--PMDeviceListActivity-->
+    <string name="pmd_data_loading">数据加载中</string>
+    <string name="pmd_device_list">设备列表</string>
+    <string name="pmd_seacher_content">搜索内容为：</string>
+    <string name="pmd_install_time">安装时间：</string>
+    <string name="pmd_monitor_map">环境监控地图</string>
+
+    <!--videoMonitoringActivity-->
+    <string name="video_monitor_seacher_device_list">正在获取设备列表</string>
+    <string name="video_monitor_device_control">视频监控</string>
+    <string name="video_monitor_getting">正在获取</string>
+    <string name="video_monitor_photo_record">设备抓拍记录</string>
+    <string name="video_monitor_map">视频监控地图</string>
+    <string name="video_monitor_seachering">正在搜索...</string>
+    <string name="video_monitor_search_content">搜索内容为：</string>
+
+    <!--messageListActivity-->
+    <string name="evironment_monitor_message">环境监控消息</string>
+    <string name="video_monitor_message">视频监控消息</string>
+    <string name="tripart_monitor_message">三方协同消息</string>
+    <string name="car_monitor_message">渣土车监控消息</string>
+    <string name="inspection_missions_message">巡查任务消息</string>
+    <string name="inspection_progrem_message">巡查计划消息</string>
+    <string name="get_no_message">未获取到数据</string>
+
+    <!--videoMonitorMapActivity-->
+    <string name="map_not_get_device_address_info">没有获取到设备地址信息！</string>
+    <string name="map_online">在线</string>
+    <string name="map_offline">离线</string>
+    <string name="map_fault">故障</string>
+    <string name="map_install_time">安装日期：</string>
+    
 </resources>

@@ -17,6 +17,8 @@ import com.isoftstone.smartsite.R;
 import com.isoftstone.smartsite.base.BaseActivity;
 import com.isoftstone.smartsite.common.widget.PullToRefreshListView;
 import com.isoftstone.smartsite.http.HttpPost;
+import com.isoftstone.smartsite.http.aqi.DataQueryVoBean;
+import com.isoftstone.smartsite.http.aqi.DataQueryVoBeanPage;
 import com.isoftstone.smartsite.http.message.BeforeNMessageBean;
 import com.isoftstone.smartsite.http.message.MessageBean;
 import com.isoftstone.smartsite.http.message.MessageBeanPage;
@@ -73,6 +75,8 @@ public class MessageListActivity extends BaseActivity {
     private OkHttpClient mClient=new OkHttpClient();
     private PatrolPlanBean patrolPlanBean;
     private String plan_url;
+    private DataQueryVoBeanPage mDataQueryVoBeanPage;
+
 
     @Override
     protected int getLayoutRes() {
@@ -89,11 +93,49 @@ public class MessageListActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if(mQueryMsgType.equals(MessageUtils.SEARCH_CODE_ENVIRON)){
+            //环境监控消息  获取全部的环境设备
+            getEviromentDevices();
+        }else{
+            getVideoDevices();
+        }
+
+
+        initListView();
+        initTitleName();
+    }
+
+    /**
+     * 获取环境监控的全部设备
+     */
+    private void getEviromentDevices(){
         Thread thread = new Thread(){
             @Override
             public void run() {
                 try {
                     PageableBean pageableBean = new PageableBean();
+                    //一次全部请求所有设备信息
+                    pageableBean.setSize(Integer.MAX_VALUE+"");
+                    mDataQueryVoBeanPage =  mHttpPost.onePMDevicesDataListPage("","0","","",pageableBean);
+                } catch (Exception e) {
+                    Log.i(TAG,"throw a exception: " + e.getMessage());
+                }
+            }
+        };
+        thread.start();
+    }
+
+    /**
+     * 获取视频监控的全部设备
+     */
+    private void getVideoDevices(){
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                try {
+                    PageableBean pageableBean = new PageableBean();
+                    //尝试一次全部请求所有设备信息
+                    pageableBean.setSize(Integer.MAX_VALUE+"");
                     mData =  mHttpPost.getDevicesListPage("1","","","",pageableBean).getContent();
                 } catch (Exception e) {
                     Log.i(TAG,"throw a exception: " + e.getMessage());
@@ -101,8 +143,6 @@ public class MessageListActivity extends BaseActivity {
             }
         };
         thread.start();
-        initListView();
-        initTitleName();
     }
 
     private void initListView() {
@@ -137,8 +177,14 @@ public class MessageListActivity extends BaseActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.e(TAG, "yanlog postion:" + position);
-                MessageBean bean=mDataBeans.get(position - 1);
+
+                //根据msgData列表查询 messageBean
+                MsgData msgData=mDatas.get(position-1);
+                if(msgData.getType()== MsgData.TYPE_YEAR){
+                    return;
+                }
+//                MessageBean bean=mDataBeans.get(position - 1);
+                MessageBean bean =getCurrentMessageData(msgData);
                 if (bean==null){
                     return;
                 }
@@ -149,9 +195,26 @@ public class MessageListActivity extends BaseActivity {
                 if (searchCode.equals(MessageUtils.SEARCH_CODE_VEDIO_OFFLINE)||searchCode.equals(MessageUtils.SEARCH_CODE_ENVIRON_PM10_LIMIT)
                         ||searchCode.equals(MessageUtils.SEARCH_CODE_DIRTCAR_ZUIZONG)){
                     Intent intent = new Intent();
-                    intent.putExtra("type", VideoMonitorMapActivity.TYPE_CAMERA);
-                    intent.putExtra("devices",mData);
-                    intent.putExtra("position",position);
+                    //修改传入的position的值 对比消息中设备的id和设备列表的设备id
+                    String extraParam=bean.getExtraParam();
+                    try {
+                        JSONObject jsonObject=new JSONObject(extraParam);
+                        planid = (String) jsonObject.get("id");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    if(mQueryMsgType.equals(MessageUtils.SEARCH_CODE_ENVIRON)){
+                        intent.putExtra("type", VideoMonitorMapActivity.TYPE_ENVIRONMENT);
+                        intent.putExtra("devices",mDataQueryVoBeanPage.getContent());
+                        intent.putExtra("position",getEviromentDevicePosition(planid));
+                    }else{
+                        intent.putExtra("type", VideoMonitorMapActivity.TYPE_CAMERA);
+                        intent.putExtra("devices",mData);
+                        intent.putExtra("position",getDevicePosition(planid));
+                    }
+
+
                     intent.setClass(mActivity,VideoMonitorMapActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mActivity.startActivity(intent);
@@ -186,6 +249,7 @@ public class MessageListActivity extends BaseActivity {
 
             }
         });
+        //查询消息列表具体数据
         new QueryMsgTask(true).execute();
     }
 
@@ -224,17 +288,17 @@ public class MessageListActivity extends BaseActivity {
     private void initTitleName() {
         TextView title = (TextView) findViewById(R.id.lab_title_name);
         if (mQueryMsgType.equals(MessageUtils.SEARCH_CODE_ENVIRON)) {
-            title.setText("环境监控消息");
+            title.setText(getString(R.string.evironment_monitor_message));
         } else if (mQueryMsgType.equals(MessageUtils.SEARCH_CODE_VEDIO)) {
-            title.setText("视频监控消息");
+            title.setText(getString(R.string.video_monitor_message));
         } else if (mQueryMsgType.equals(MessageUtils.SEARCH_CODE_THREE_PARTY)) {
-            title.setText("三方协同消息");
+            title.setText(getString(R.string.tripart_monitor_message));
         } else if (mQueryMsgType.equals(MessageUtils.SEARCH_CODE_DIRTCAR)) {
-            title.setText("渣土车监控消息");
+            title.setText(getString(R.string.car_monitor_message));
         } else if (mQueryMsgType.equals(MessageUtils.SEARCH_CODE_TASK)) {
-            title.setText("巡查任务消息");
+            title.setText(getString(R.string.inspection_missions_message));
         } else if (mQueryMsgType.equals(MessageUtils.SEARCH_CODE_PLAN)) {
-            title.setText("巡查计划消息");
+            title.setText(getString(R.string.inspection_progrem_message));
         }
     }
 
@@ -255,6 +319,8 @@ public class MessageListActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             isLoading = true;
+            //新增第一次加载页面空白页面的一个加载效果
+            mListView.onRefreshing();
             super.onPreExecute();
         }
 
@@ -303,7 +369,7 @@ public class MessageListActivity extends BaseActivity {
             super.onPostExecute(s);
             Log.e(TAG, "defernotifyDatasetChanged");
             if (mDatas == null || mDatas.size() == 0) {
-                ToastUtils.showShort("未获取到数据");
+                ToastUtils.showShort(getString(R.string.get_no_message));
             }
             mListView.onLoadMoreComplete();
             mListView.onRefreshComplete();
@@ -330,5 +396,49 @@ public class MessageListActivity extends BaseActivity {
             getData(plan_url,mClient);
             return null;
         }
+    }
+
+
+    /**
+     * 获取当前消息的设备id在视频设备列表中的位置
+     * @param id 消息中的设备id
+     * @return
+     */
+    private int getDevicePosition(String id){
+        for(int i=0;i<mData.size();i++){
+            if(mData.get(i).getDeviceId().equals(id)){
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * 获取当前消息的设备在环境监控设备列表中的位置
+     * @param id
+     * @return
+     */
+    private int getEviromentDevicePosition(String id){
+            ArrayList<DataQueryVoBean> list =mDataQueryVoBeanPage.getContent();
+            for(int i=0;i<list.size();i++){
+                if((list.get(i).getDeviceId()+"").equals(id)){
+                    return i;
+                }
+            }
+            return 0;
+    }
+
+    /**
+     * 根据当前的MsgData 查找MessageBean
+     * @param data
+     */
+    private MessageBean getCurrentMessageData(MsgData data){
+        for(int i=0;i<mDataBeans.size();i++){
+
+            if(data.getId().equals(mDataBeans.get(i).getInfoId())){
+                return mDataBeans.get(i);
+            }
+        }
+        return mDataBeans.get(0);
     }
 }
